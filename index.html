@@ -29,7 +29,7 @@
             justify-content: flex-start; 
             min-height: 100vh;
             margin: 0;
-            padding: 10px 10px 20px 10px; /* 위아래 여백을 더 줄여서 공간 확보 */
+            padding: 10px 10px 20px 10px; 
             overflow-x: hidden;
         }
         
@@ -52,8 +52,8 @@
             font-size: 14px; 
             text-shadow: 1px 1px 0px #ab7a4b;
             border: 2px solid #ab7a4b;
-            margin-top: 18px; /* 위쪽 여백 축소 */
-            margin-bottom: 15px; /* 아래쪽 여백 축소 */
+            margin-top: 18px; 
+            margin-bottom: 15px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -63,11 +63,10 @@
             box-shadow: 0 4px 0px rgba(212, 163, 115, 0.2); 
         }
         
-        /* 나무 막대기 */
         .wood-sign::before, .wood-sign::after {
             content: '';
             position: absolute;
-            top: -18px; /* 길이를 살짝 줄임 */
+            top: -18px; 
             width: 8px;
             height: 18px;
             background-color: #a87e5b; 
@@ -137,7 +136,7 @@
         /* ---------------- [ 메인 게임 창 ] ---------------- */
         .game-window {
             background-color: #fffbf2;
-            padding: 15px 12px 18px; /* 패딩 축소 */
+            padding: 15px 12px 18px; 
             width: 100%;
             border: 3px solid #d4a373;
             border-radius: 16px;
@@ -151,50 +150,10 @@
             z-index: 2;
         }
 
-        /* 구름 말풍선 */
-        .speech-cloud {
-            position: relative;
-            background: #ffffff;
-            color: #5c4332;
-            font-size: 15px; 
-            padding: 8px 12px; 
-            width: 90%;
-            border: 3px solid #d4a373;
-            border-radius: 16px 10px 16px 10px;
-            margin-bottom: 15px; /* 마진 축소 */
-            text-align: center;
-            min-height: 40px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            word-break: keep-all;
-            box-shadow: 2px 2px 0px rgba(212, 163, 115, 0.2);
-            line-height: 1.2;
-        }
-        .speech-cloud::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
-            width: 10px;
-            height: 10px;
-            background-color: #ffffff;
-            border-bottom: 3px solid #d4a373;
-            border-right: 3px solid #d4a373;
-            border-bottom-right-radius: 4px;
-        }
-        
-        .deco { position: absolute; font-size: 12px; }
-        .deco-1 { left: 6px; top: 6px; }
-        .deco-2 { right: 6px; top: -8px; font-size: 14px; }
-        .deco-3 { right: 6px; bottom: 4px; font-size: 10px; }
-        .deco-4 { left: 10px; bottom: -8px; font-size: 14px; }
-
-        /* 포토카드 (크기 대폭 확대) */
+        /* 포토카드 (맨 위로 이동) */
         .photocard-wrapper {
-            width: 250px; /* 기존 210px -> 250px 확대 */
-            height: 360px; /* 기존 300px -> 360px 확대 */
+            width: 250px; 
+            height: 360px; 
             background-color: #fdf5e6;
             border: 6px solid #d4a373;
             border-radius: 14px;
@@ -207,6 +166,7 @@
             overflow: hidden;
             box-shadow: inset 0 0 6px rgba(92, 67, 50, 0.2), 3px 3px 0 rgba(212, 163, 115, 0.3);
             transition: transform 0.2s;
+            margin-bottom: 15px; /* 말풍선과의 간격 */
         }
         .photocard-wrapper:hover {
             transform: rotate(-2deg) scale(1.02);
@@ -234,6 +194,46 @@
         input[type="file"] {
             display: none;
         }
+
+        /* 구름 말풍선 (사진 아래로 이동 & 꼬리가 위를 향하게 수정) */
+        .speech-cloud {
+            position: relative;
+            background: #ffffff;
+            color: #5c4332;
+            font-size: 15px; 
+            padding: 10px 12px; 
+            width: 90%;
+            border: 3px solid #d4a373;
+            border-radius: 16px 10px 16px 10px;
+            text-align: center;
+            min-height: 40px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: keep-all;
+            box-shadow: 2px 2px 0px rgba(212, 163, 115, 0.2);
+            line-height: 1.2;
+        }
+        /* 말풍선 꼬리가 위를 향하도록 수정 (사진이 위에서 말하는 느낌) */
+        .speech-cloud::after {
+            content: '';
+            position: absolute;
+            top: -10px; /* 위쪽으로 꼬리 배치 */
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+            border-top: 3px solid #d4a373;
+            border-left: 3px solid #d4a373;
+            border-top-left-radius: 4px;
+        }
+        
+        .deco { position: absolute; font-size: 12px; }
+        .deco-1 { left: 6px; top: 6px; }
+        .deco-2 { right: 6px; top: -8px; font-size: 14px; }
+        .deco-3 { right: 6px; bottom: 4px; font-size: 10px; }
+        .deco-4 { left: 10px; bottom: -8px; font-size: 14px; }
 
         /* ---------------- [ 크롭 모달창 ] ---------------- */
         .crop-popup-overlay {
@@ -352,7 +352,6 @@
                 border-radius: 18px 12px 18px 12px;
             }
 
-            /* PC 환경에서도 포토카드를 큼직하게 유지 */
             .photocard-wrapper {
                 width: 250px; 
                 height: 360px;
@@ -378,15 +377,7 @@
 
         <!-- 3. 메인 게임 창 -->
         <div class="game-window">
-            <div class="speech-cloud" id="speechBubble">
-                <span class="deco deco-1">✨</span>
-                <span class="deco deco-2">🍎</span>
-                <span class="deco deco-3">💕</span>
-                <span class="deco deco-4">🍓</span>
-                위에 있는 탭을 눌러봐!
-            </div>
-
-            <!-- 포토카드 -->
+            <!-- 포토카드 (위쪽으로 이동) -->
             <label for="imageUpload" class="photocard-wrapper" id="photoWrapper">
                 <div class="upload-text" id="uploadText">
                     <span class="paw">📸</span>
@@ -395,6 +386,15 @@
                 <img id="previewImage" alt="최애 포토카드">
             </label>
             <input type="file" id="imageUpload" accept="image/*">
+
+            <!-- 구름 말풍선 (아래쪽으로 이동, 꼬리가 위를 향함) -->
+            <div class="speech-cloud" id="speechBubble">
+                <span class="deco deco-1">✨</span>
+                <span class="deco deco-2">🍎</span>
+                <span class="deco deco-3">💕</span>
+                <span class="deco deco-4">🍓</span>
+                위에 있는 탭을 눌러봐!
+            </div>
         </div>
     </div>
 
@@ -450,7 +450,7 @@
                     }
                     
                     cropper = new Cropper(imageToCrop, {
-                        aspectRatio: 250 / 360, // 커진 포토카드 비율 적용
+                        aspectRatio: 250 / 360, 
                         viewMode: 1,
                         dragMode: 'move',
                         autoCropArea: 0.9,
@@ -482,7 +482,7 @@
             if (!cropper) return;
 
             const canvas = cropper.getCroppedCanvas({
-                width: 500, // 화질을 위해 2배 사이즈 추출
+                width: 500, 
                 height: 720
             });
 
@@ -514,7 +514,7 @@
             "이 돈 아껴서 나중에 더 좋은 거 사자"
         ];
 
-        const eatList = [
+    const eatList = [
             "참을 수 있다 ^^",
             "먹고 죽은 귀신이? 때깔도 곱다",
             "어~ 안 돼~ 일찍 자~",
