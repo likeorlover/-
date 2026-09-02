@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>꼬모의 결정 헬퍼</title>
+    <!-- 동물의 숲 느낌을 살릴 수 있는 귀엽고 둥근 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* 파스텔톤 체크무늬 배경 */
+            background-color: #fdf5e6;
+            background-image: 
+                linear-gradient(90deg, rgba(162, 212, 195, 0.25) 50%, transparent 50%),
+                linear-gradient(rgba(243, 178, 185, 0.25) 50%, transparent 50%);
+            background-size: 60px 60px;
+            color: #5c4332; /* 따뜻한 진갈색 텍스트 */
+            font-family: 'Jua', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        /* 전체 컨테이너 */
+        .game-window {
+            background-color: #fffbf2;
+            padding: 30px 40px;
+            width: 480px;
+            border: 5px solid #d4a373; /* 우드 프레임 느낌 */
+            border-radius: 25px;
+            box-shadow: 
+                0 15px 0px rgba(212, 163, 115, 0.4),
+                inset 0 0 0 8px #f4e8d3; /* 내부 이중 테두리 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        /* 상단 우드 간판 */
+        .wood-sign {
+            position: absolute;
+            top: -45px;
+            background-color: #d4a373;
+            color: #fff;
+            padding: 10px 40px;
+            border-radius: 20px 20px 0 0;
+            font-size: 26px;
+            text-shadow: 2px 2px 0px #ab7a4b;
+            border: 4px solid #ab7a4b;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+        .wood-sign::before {
+            content: '🍃';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
+
+        /* 이름 입력 영역 */
+        .name-section {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .name-input-wrapper {
+            background-color: #f3e5d0;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 3px solid #d4a373;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .name-input-wrapper::after {
+            content: '🍃';
+            position: absolute;
+            right: -35px;
+            font-size: 24px;
+        }
+        input[type="text"] {
+            font-family: 'Jua', sans-serif;
+            background-color: transparent;
+            color: #5c4332;
+            border: none;
+            width: 90px;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+        }
+
+        /* 구름 말풍선 */
+        .speech-cloud {
+            position: relative;
+            background: #ffffff;
+            color: #5c4332;
+            font-size: 18px;
+            padding: 20px;
+            width: 90%;
+            border: 4px solid #d4a373;
+            border-radius: 25px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            min-height: 25px;
+            word-break: keep-all;
+            box-shadow: 4px 4px 0px rgba(212, 163, 115, 0.3);
+            /* 구름처럼 구불구불한 느낌을 주기 위한 가짜 보더 */
+            border-radius: 30px 20px 30px 20px;
+        }
+        /* 말풍선 꼬리 */
+        .speech-cloud::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 30%;
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff;
+            border-bottom: 4px solid #d4a373;
+            border-right: 4px solid #d4a373;
+            border-bottom-right-radius: 10px;
+            transform: rotate(45deg);
+        }
+        /* 주변 꾸미기 아이콘 */
+        .deco { position: absolute; font-size: 20px; }
+        .deco-1 { left: -15px; top: 10px; font-size: 24px; }
+        .deco-2 { right: -10px; top: -15px; }
+        .deco-3 { right: -25px; bottom: 10px; font-size: 16px; }
+        .deco-4 { left: 10px; bottom: -15px; }
+
+        /* 하단 레이아웃 (포토카드 + 버튼들) */
+        .bottom-content {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* 나무 액자 포토카드 영역 */
+        .photocard-wrapper {
+            width: 170px;
+            height: 240px; /* 세로형 비율 유지 */
+            background-color: #f3e5d0;
+            border: 12px solid #d4a373; /* 두꺼운 나무 액자 느낌 */
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(92, 67, 50, 0.2), 4px 4px 0 rgba(212, 163, 115, 0.3);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .photocard-wrapper:hover {
+            transform: rotate(-2deg) scale(1.02);
+        }
+        .photocard-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            border-radius: 5px;
+        }
+        .upload-text {
+            color: #a87e5b;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .upload-text .paw {
+            font-size: 32px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+
+        /* 둥근 알약 모양 버튼 그룹 */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        button {
+            font-family: 'Jua', sans-serif;
+            border: 4px solid #5c4332;
+            border-radius: 30px;
+            padding: 12px 20px;
+            font-size: 20px;
+            color: #5c4332;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.1s;
+        }
+        /* 파스텔 색상 및 3D 눌림 효과 */
+        .btn-do { 
+            background-color: #c5e3d5; 
+            box-shadow: 0 6px 0px #8fae9f;
+        } 
+        .btn-buy { 
+            background-color: #f6c5c8; 
+            box-shadow: 0 6px 0px #c59b9d;
+        } 
+        .btn-eat { 
+            background-color: #fce19a; 
+            box-shadow: 0 6px 0px #c7af70;
+        }
+        
+        button:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0px transparent !important;
+        }
+        .btn-icon {
+            font-size: 22px;
+        }
+
+        /* 하단 민트/핑크 레이어 장식 (가상 요소) */
+        .game-window::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: -5px;
+            right: -5px;
+            height: 30px;
+            background-color: #a2d4c3;
+            border-radius: 0 0 25px 25px;
+            border: 5px solid #d4a373;
+            border-top: none;
+            z-index: -1;
+        }
+        .game-window::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: -5px;
+            right: -5px;
+            height: 30px;
+            background-color: #f3b2b9;
+            border-radius: 0 0 25px 25px;
+            border: 5px solid #d4a373;
+            border-top: none;
+            z-index: -2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="game-window">
+        <!-- 상단 간판 -->
+        <div class="wood-sign">
+            꼬모의 결정 헬퍼
+        </div>
+        
+        <!-- 최애 이름 -->
+        <div class="name-section">
+            최애 이름 :
+            <div class="name-input-wrapper">
+                <input type="text" id="biasName" placeholder="이름" autocomplete="off">
+            </div>
+        </div>
+
+        <!-- 말풍선 -->
+        <div class="speech-cloud" id="speechBubble">
+            <span class="deco deco-1">✨</span>
+            <span class="deco deco-2">🍎</span>
+            <span class="deco deco-3">💕</span>
+            <span class="deco deco-4">🍓</span>
+            고민되는 걸 꼬모에게 물어봐!
+        </div>
+
+        <!-- 하단 영역 (포토카드 + 버튼 가로 배치) -->
+        <div class="bottom-content">
+            <!-- 포토카드(사진 업로드) 영역 -->
+            <label for="imageUpload" class="photocard-wrapper" id="photoWrapper">
+                <div class="upload-text" id="uploadText">
+                    <span class="paw">🐾</span>
+                    사진을 넣어주세요!
+                </div>
+                <img id="previewImage" alt="최애 포토카드">
+            </label>
+            <input type="file" id="imageUpload" accept="image/*">
+
+            <!-- 알약형 버튼 -->
+            <div class="button-group">
+                <button class="btn-do" onclick="decide('do')">
+                    할까? 말까? <span class="btn-icon">🍃</span>
+                </button>
+                <button class="btn-buy" onclick="decide('buy')">
+                    살까? 말까? <span class="btn-icon">👛</span>
+                </button>
+                <button class="btn-eat" onclick="decide('eat')">
+                    먹을까? 말까? <span class="btn-icon">🧺</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 효과음 오디오 (선택사항) -->
+    <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+
+    <script>
+        const imageUpload = document.getElementById('imageUpload');
+        const previewImage = document.getElementById('previewImage');
+        const uploadText = document.getElementById('uploadText');
+        const speechBubble = document.getElementById('speechBubble');
+        const biasNameInput = document.getElementById('biasName');
+        const popSound = document.getElementById('popSound');
+
+        window.onload = function() {
+            const savedName = localStorage.getItem('biasName');
+            if (savedName) biasNameInput.value = savedName;
+
+            const savedImage = localStorage.getItem('biasPhoto');
+            if (savedImage) {
+                previewImage.src = savedImage;
+                previewImage.style.display = 'block';
+                uploadText.style.display = 'none';
+            }
+        };
+
+        biasNameInput.addEventListener('input', function(e) {
+            localStorage.setItem('biasName', e.target.value);
+        });
+
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64String = event.target.result;
+                    previewImage.src = base64String;
+                    previewImage.style.display = 'block';
+                    uploadText.style.display = 'none';
+                    localStorage.setItem('biasPhoto', base64String);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const doList = [
+            "할까 말까 할 때는 해야지!",
+            "왠지 고민이 돼? 그럼 잠깐 쉴까?",
+            "그래도 해야지~",
+            "좀 더 고민해 보는 게 어때?"
+        ];
+
+        const buyList = [
+            "당장 장바구니 ㄱㄱ",
+            "지갑 닫자 통장 운다",
+            "살까 말까 할 땐 사서 남겨",
+            "이 돈 아껴서 나중에 더 좋은 거 사자"
+        ];
+
+        const eatList = [
+            "참을 수 있다 ^^",
+            "먹고 죽은 귀신이 때깔도 곱다!",
+            "어~ 안 돼~ 응~ 아니야~",
+            "뭐 해? 아직 안 시켰어?"
+        ];
+
+        function decide(type) {
+            // 버튼 클릭 소리 재생
+            popSound.currentTime = 0;
+            popSound.play().catch(e => console.log("오디오 재생 권한이 필요할 수 있습니다."));
+
+            const name = biasNameInput.value.trim() || '최애';
+            
+            // 말풍선 내용만 살짝 투명해졌다가 나타남
+            speechBubble.style.opacity = 0;
+
+            setTimeout(() => {
+                let choice = "";
+                if (type === 'do') choice = doList[Math.floor(Math.random() * doList.length)];
+                else if (type === 'buy') choice = buyList[Math.floor(Math.random() * buyList.length)];
+                else if (type === 'eat') choice = eatList[Math.floor(Math.random() * eatList.length)];
+                
+                // 기존 장식 아이콘들을 유지하면서 텍스트만 교체
+                speechBubble.innerHTML = `
+                    <span class="deco deco-1">✨</span>
+                    <span class="deco deco-2">🍎</span>
+                    <span class="deco deco-3">💕</span>
+                    <span class="deco deco-4">🍓</span>
+                    <strong>[${name}] :</strong><br>${choice}
+                `;
+                speechBubble.style.opacity = 1;
+            }, 200);
+        }
+    </script>
+</body>
+</html>
