@@ -43,47 +43,70 @@
             margin: auto;
         }
 
-        /* ---------------- [ 상단 우드 간판 (모바일 기본: 아주 작게) ] ---------------- */
+        /* ---------------- [ 상단 우드 간판 (위에 매달린 느낌) ] ---------------- */
         .wood-sign {
             background-color: #d4a373;
             color: #fff;
-            padding: 4px 10px; 
+            padding: 6px 35px; /* 양옆 넉넉한 여백 */
             border-radius: 10px; 
             font-size: 14px; 
             text-shadow: 1px 1px 0px #ab7a4b;
             border: 2px solid #ab7a4b;
-            margin-bottom: 15px; 
+            margin-top: 25px; /* 나무 막대가 들어갈 위쪽 여유 공간 */
+            margin-bottom: 20px; 
             display: flex;
             align-items: center;
             justify-content: center;
             white-space: nowrap;
             position: relative;
             z-index: 10;
+            box-shadow: 0 4px 0px rgba(212, 163, 115, 0.2); /* 간판 입체감 */
         }
+        
+        /* 나무 막대기 (위로 뻗음) */
         .wood-sign::before, .wood-sign::after {
-            content: '📌';
+            content: '';
             position: absolute;
-            font-size: 10px;
-            top: -4px;
+            top: -24px; /* 간판 위로 튀어나오게 */
+            width: 8px;
+            height: 24px;
+            background-color: #a87e5b; /* 막대기 나무색 */
+            border: 2px solid #8c5a2b; /* 막대기 테두리 */
+            border-bottom: none; /* 간판 뒤로 숨겨짐 */
+            z-index: -1; 
         }
-        .wood-sign::before { left: 6px; }
-        .wood-sign::after { right: 6px; }
+        .wood-sign::before { left: 20px; }
+        .wood-sign::after { right: 20px; }
 
-        /* ---------------- [ 인덱스 탭 (모바일 기본: 앙증맞게 축소) ] ---------------- */
+        /* 막대기 고정 못(Nail) */
+        .nail {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #78716c; /* 철 못 색상 */
+            border-radius: 50%;
+            top: 5px;
+            box-shadow: inset 1px 1px 0px rgba(255,255,255,0.4), 1px 1px 1px rgba(0,0,0,0.3);
+        }
+        .nail-left { left: 21px; }
+        .nail-right { right: 21px; }
+
+        /* ---------------- [ 인덱스 탭 ] ---------------- */
         .tabs {
             display: flex;
             justify-content: center;
             width: 90%;
             gap: 3px;
-            margin-bottom: -3px; 
+            margin-bottom: -4px; 
             z-index: 1;
+            align-items: flex-end; 
         }
 
         .tab-btn {
             font-family: 'Jua', sans-serif;
             font-weight: 400;
             flex: 1;
-            padding: 6px 2px 10px 2px; 
+            padding: 8px 2px 12px 2px; 
             font-size: 13px; 
             border: 2px solid #d4a373;
             border-bottom: none;
@@ -93,23 +116,30 @@
             align-items: center;
             justify-content: center;
             gap: 2px;
-            transition: all 0.1s;
+            transition: all 0.2s ease-in-out;
             box-shadow: inset 0 3px 0px rgba(255, 255, 255, 0.4);
             color: #5c4332;
+            position: relative;
+            z-index: 1;
         }
         
-        .tab-btn:active {
-            transform: translateY(3px);
+        /* 탭 활성화 상태 (살짝만 튀어나오게 조절) */
+        .tab-btn.active {
+            transform: translateY(-4px); /* 기존 -6px -> -4px 로 낮춤 */
+            padding-bottom: 16px; /* 아래쪽 여백도 조금 줄임 */
+            z-index: 5;
+            box-shadow: inset 0 4px 0px rgba(255, 255, 255, 0.6), 0 -2px 5px rgba(0,0,0,0.05);
+            font-size: 13.5px; 
         }
 
         .tab-do { background-color: #c5e3d5; } 
         .tab-buy { background-color: #f6c5c8; }
         .tab-eat { background-color: #fce19a; }
 
-        /* ---------------- [ 메인 게임 창 (모바일 기본: 테두리와 여백 축소) ] ---------------- */
+        /* ---------------- [ 메인 게임 창 ] ---------------- */
         .game-window {
             background-color: #fffbf2;
-            padding: 15px 12px 20px;
+            padding: 20px 12px 25px; 
             width: 100%;
             border: 3px solid #d4a373;
             border-radius: 16px;
@@ -121,23 +151,6 @@
             align-items: center;
             position: relative;
             z-index: 2;
-        }
-
-        /* 상태 표시줄 (모바일 기본: 글씨, 박스 크기 축소) */
-        .category-display {
-            background-color: #f3e5d0;
-            color: #a87e5b;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 13px; 
-            border: 2px dashed #d4a373;
-            margin-bottom: 12px;
-            text-align: center;
-            width: 90%;
-            min-height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         /* 구름 말풍선 */
@@ -180,7 +193,7 @@
         .deco-3 { right: 6px; bottom: 4px; font-size: 10px; }
         .deco-4 { left: 10px; bottom: -8px; font-size: 14px; }
 
-        /* 포토카드 (크기 큼직하게 유지) */
+        /* 포토카드 */
         .photocard-wrapper {
             width: 210px; 
             height: 300px; 
@@ -283,16 +296,28 @@
             background-color: #e6d3b8;
         }
 
-        /* ---------------- [ PC / 태블릿 화면 (가로 480px 이상)일 때는 기존 크기로 복구 ] ---------------- */
+        /* ---------------- [ PC / 태블릿 화면 (가로 480px 이상) ] ---------------- */
         @media (min-width: 480px) {
             .wood-sign {
-                padding: 5px 14px;
+                padding: 8px 45px;
                 border-radius: 12px;
                 font-size: 16px;
                 border-width: 3px;
-                margin-bottom: 20px;
+                margin-top: 30px;
+                margin-bottom: 25px;
             }
-            .wood-sign::before, .wood-sign::after { font-size: 12px; top: -5px; }
+            .wood-sign::before, .wood-sign::after { 
+                width: 10px; 
+                height: 30px; 
+                top: -28px; 
+                border-width: 3px; 
+            }
+            .wood-sign::before { left: 25px; }
+            .wood-sign::after { right: 25px; }
+            
+            .nail { width: 8px; height: 8px; top: 7px; }
+            .nail-left { left: 26px; }
+            .nail-right { right: 26px; }
             
             .tabs { gap: 5px; margin-bottom: -4px; }
             .tab-btn {
@@ -301,20 +326,17 @@
                 border-width: 3px;
                 border-radius: 14px 14px 0 0;
             }
+            .tab-btn.active {
+                transform: translateY(-5px); /* PC에서도 살짝만 튀어나오게 조정 */
+                padding-bottom: 19px;
+                font-size: 17px;
+            }
 
             .game-window {
                 padding: 25px 15px 30px;
                 border-width: 4px;
                 border-radius: 20px;
                 box-shadow: inset 0 0 0 6px #f4e8d3, 0 8px 0px rgba(212, 163, 115, 0.3);
-            }
-
-            .category-display {
-                padding: 4px 12px;
-                border-radius: 12px;
-                font-size: 16px;
-                min-height: 28px;
-                margin-bottom: 15px;
             }
 
             .speech-cloud {
@@ -328,8 +350,12 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- 1. 밖으로 꺼낸 우드 간판 (작아짐) -->
-        <div class="wood-sign">이제 고민하지 마! 내가 골라 줄게</div>
+        <!-- 1. 밖으로 꺼내고 매달린 효과를 준 우드 간판 -->
+        <div class="wood-sign">
+            <div class="nail nail-left"></div>
+            <div class="nail nail-right"></div>
+            이제 고민하지 마! 내가 골라 줄게
+        </div>
 
         <!-- 2. 상단 아기자기한 인덱스 탭 -->
         <div class="tabs">
@@ -340,19 +366,15 @@
 
         <!-- 3. 메인 게임 창 -->
         <div class="game-window">
-            <div class="category-display" id="categoryDisplay">
-                위에 있는 탭을 눌러봐! 🐾
-            </div>
-
             <div class="speech-cloud" id="speechBubble">
                 <span class="deco deco-1">✨</span>
                 <span class="deco deco-2">🍎</span>
                 <span class="deco deco-3">💕</span>
                 <span class="deco deco-4">🍓</span>
-                버튼을 누르면 내가 골라 줄게!
+                위에 있는 탭을 눌러봐!
             </div>
 
-            <!-- 포토카드 크기 큼직하게 유지 -->
+            <!-- 포토카드 -->
             <label for="imageUpload" class="photocard-wrapper" id="photoWrapper">
                 <div class="upload-text" id="uploadText">
                     <span class="paw">📸</span>
@@ -384,7 +406,6 @@
         const previewImage = document.getElementById('previewImage');
         const uploadText = document.getElementById('uploadText');
         const speechBubble = document.getElementById('speechBubble');
-        const categoryDisplay = document.getElementById('categoryDisplay');
         const popSound = document.getElementById('popSound');
 
         // 크롭 관련 요소들
@@ -416,7 +437,6 @@
                         cropper.destroy();
                     }
                     
-                    // 커진 포토카드 비율(210:300) 적용
                     cropper = new Cropper(imageToCrop, {
                         aspectRatio: 210 / 300,
                         viewMode: 1,
@@ -449,7 +469,6 @@
         applyCropBtn.addEventListener('click', function() {
             if (!cropper) return;
 
-            // 커진 비율에 맞게 화질 향상 추출
             const canvas = cropper.getCroppedCanvas({
                 width: 420, 
                 height: 600
@@ -499,20 +518,18 @@
             popSound.currentTime = 0;
             popSound.play().catch(e => console.log("오디오 재생 권한 필요"));
 
-            let list = [];
-            let categoryText = "";
-            if (type === 'do') {
-                list = doList;
-                categoryText = "🌿 [ 할/말 ] 고민 중...";
-            } else if (type === 'buy') {
-                list = buyList;
-                categoryText = "👛 [ 살/말 ] 고민 중...";
-            } else if (type === 'eat') {
-                list = eatList;
-                categoryText = "🧺 [ 먹/말 ] 고민 중...";
-            }
+            // 모든 탭의 튀어나온 효과(active) 제거
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 
-            categoryDisplay.innerText = categoryText;
+            // 선택된 탭에만 튀어나오는 효과 추가
+            if (type === 'do') document.querySelector('.tab-do').classList.add('active');
+            else if (type === 'buy') document.querySelector('.tab-buy').classList.add('active');
+            else if (type === 'eat') document.querySelector('.tab-eat').classList.add('active');
+
+            let list = [];
+            if (type === 'do') list = doList;
+            else if (type === 'buy') list = buyList;
+            else if (type === 'eat') list = eatList;
 
             let counter = 0;
             let maxRolls = 12; 
@@ -531,11 +548,6 @@
                     clearInterval(rollInterval);
                     let finalChoice = list[Math.floor(Math.random() * list.length)];
                     
-                    if (type === 'do') categoryText = "🌿 [ 할까? 말까? ] 결정 완료!";
-                    else if (type === 'buy') categoryText = "👛 [ 살까? 말까? ] 결정 완료!";
-                    else if (type === 'eat') categoryText = "🧺 [ 먹을까? 말까? ] 결정 완료!";
-                    categoryDisplay.innerText = categoryText;
-
                     speechBubble.innerHTML = `
                         <span class="deco deco-1">✨</span>
                         <span class="deco deco-2">🍎</span>
