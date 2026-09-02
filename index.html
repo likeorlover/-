@@ -26,10 +26,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            /* 모바일에서는 위에서부터 꽉 차게 시작 (중앙 정렬 해제) */
+            justify-content: flex-start; 
             min-height: 100vh;
             margin: 0;
-            padding: 30px 10px;
+            padding: 15px 10px 40px 10px; /* 위쪽 여백 대폭 감소 */
             overflow-x: hidden;
         }
         
@@ -40,14 +41,14 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            margin: auto;
+            margin: 0 auto; /* 상하 여백 없앰 */
         }
 
         /* ---------------- [ 상단 우드 간판 (위에 매달린 느낌) ] ---------------- */
         .wood-sign {
             background-color: #d4a373;
             color: #fff;
-            padding: 6px 35px; /* 양옆 넉넉한 여백 */
+            padding: 6px 35px; 
             border-radius: 10px; 
             font-size: 14px; 
             text-shadow: 1px 1px 0px #ab7a4b;
@@ -60,19 +61,19 @@
             white-space: nowrap;
             position: relative;
             z-index: 10;
-            box-shadow: 0 4px 0px rgba(212, 163, 115, 0.2); /* 간판 입체감 */
+            box-shadow: 0 4px 0px rgba(212, 163, 115, 0.2); 
         }
         
         /* 나무 막대기 (위로 뻗음) */
         .wood-sign::before, .wood-sign::after {
             content: '';
             position: absolute;
-            top: -24px; /* 간판 위로 튀어나오게 */
+            top: -24px; 
             width: 8px;
             height: 24px;
-            background-color: #a87e5b; /* 막대기 나무색 */
-            border: 2px solid #8c5a2b; /* 막대기 테두리 */
-            border-bottom: none; /* 간판 뒤로 숨겨짐 */
+            background-color: #a87e5b; 
+            border: 2px solid #8c5a2b; 
+            border-bottom: none; 
             z-index: -1; 
         }
         .wood-sign::before { left: 20px; }
@@ -83,7 +84,7 @@
             position: absolute;
             width: 6px;
             height: 6px;
-            background-color: #78716c; /* 철 못 색상 */
+            background-color: #78716c; 
             border-radius: 50%;
             top: 5px;
             box-shadow: inset 1px 1px 0px rgba(255,255,255,0.4), 1px 1px 1px rgba(0,0,0,0.3);
@@ -125,8 +126,8 @@
         
         /* 탭 활성화 상태 (살짝만 튀어나오게 조절) */
         .tab-btn.active {
-            transform: translateY(-4px); /* 기존 -6px -> -4px 로 낮춤 */
-            padding-bottom: 16px; /* 아래쪽 여백도 조금 줄임 */
+            transform: translateY(-4px); 
+            padding-bottom: 16px; 
             z-index: 5;
             box-shadow: inset 0 4px 0px rgba(255, 255, 255, 0.6), 0 -2px 5px rgba(0,0,0,0.05);
             font-size: 13.5px; 
@@ -298,6 +299,15 @@
 
         /* ---------------- [ PC / 태블릿 화면 (가로 480px 이상) ] ---------------- */
         @media (min-width: 480px) {
+            body {
+                /* PC 환경에서는 다시 중앙 정렬로 예쁘게 배치 */
+                justify-content: center;
+                padding: 30px 10px;
+            }
+            .app-container {
+                margin: auto;
+            }
+
             .wood-sign {
                 padding: 8px 45px;
                 border-radius: 12px;
@@ -327,7 +337,7 @@
                 border-radius: 14px 14px 0 0;
             }
             .tab-btn.active {
-                transform: translateY(-5px); /* PC에서도 살짝만 튀어나오게 조정 */
+                transform: translateY(-5px); 
                 padding-bottom: 19px;
                 font-size: 17px;
             }
