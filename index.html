@@ -26,11 +26,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* 모바일에서는 위에서부터 꽉 차게 시작 (중앙 정렬 해제) */
             justify-content: flex-start; 
             min-height: 100vh;
             margin: 0;
-            padding: 15px 10px 40px 10px; /* 위쪽 여백 대폭 감소 */
+            padding: 10px 10px 20px 10px; /* 위아래 여백을 더 줄여서 공간 확보 */
             overflow-x: hidden;
         }
         
@@ -41,10 +40,10 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            margin: 0 auto; /* 상하 여백 없앰 */
+            margin: 0 auto; 
         }
 
-        /* ---------------- [ 상단 우드 간판 (위에 매달린 느낌) ] ---------------- */
+        /* ---------------- [ 상단 우드 간판 ] ---------------- */
         .wood-sign {
             background-color: #d4a373;
             color: #fff;
@@ -53,8 +52,8 @@
             font-size: 14px; 
             text-shadow: 1px 1px 0px #ab7a4b;
             border: 2px solid #ab7a4b;
-            margin-top: 25px; /* 나무 막대가 들어갈 위쪽 여유 공간 */
-            margin-bottom: 20px; 
+            margin-top: 18px; /* 위쪽 여백 축소 */
+            margin-bottom: 15px; /* 아래쪽 여백 축소 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,13 +63,13 @@
             box-shadow: 0 4px 0px rgba(212, 163, 115, 0.2); 
         }
         
-        /* 나무 막대기 (위로 뻗음) */
+        /* 나무 막대기 */
         .wood-sign::before, .wood-sign::after {
             content: '';
             position: absolute;
-            top: -24px; 
+            top: -18px; /* 길이를 살짝 줄임 */
             width: 8px;
-            height: 24px;
+            height: 18px;
             background-color: #a87e5b; 
             border: 2px solid #8c5a2b; 
             border-bottom: none; 
@@ -79,7 +78,6 @@
         .wood-sign::before { left: 20px; }
         .wood-sign::after { right: 20px; }
 
-        /* 막대기 고정 못(Nail) */
         .nail {
             position: absolute;
             width: 6px;
@@ -124,7 +122,6 @@
             z-index: 1;
         }
         
-        /* 탭 활성화 상태 (살짝만 튀어나오게 조절) */
         .tab-btn.active {
             transform: translateY(-4px); 
             padding-bottom: 16px; 
@@ -140,7 +137,7 @@
         /* ---------------- [ 메인 게임 창 ] ---------------- */
         .game-window {
             background-color: #fffbf2;
-            padding: 20px 12px 25px; 
+            padding: 15px 12px 18px; /* 패딩 축소 */
             width: 100%;
             border: 3px solid #d4a373;
             border-radius: 16px;
@@ -160,13 +157,13 @@
             background: #ffffff;
             color: #5c4332;
             font-size: 15px; 
-            padding: 10px 12px; 
+            padding: 8px 12px; 
             width: 90%;
             border: 3px solid #d4a373;
             border-radius: 16px 10px 16px 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* 마진 축소 */
             text-align: center;
-            min-height: 44px; 
+            min-height: 40px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -194,10 +191,10 @@
         .deco-3 { right: 6px; bottom: 4px; font-size: 10px; }
         .deco-4 { left: 10px; bottom: -8px; font-size: 14px; }
 
-        /* 포토카드 */
+        /* 포토카드 (크기 대폭 확대) */
         .photocard-wrapper {
-            width: 210px; 
-            height: 300px; 
+            width: 250px; /* 기존 210px -> 250px 확대 */
+            height: 360px; /* 기존 300px -> 360px 확대 */
             background-color: #fdf5e6;
             border: 6px solid #d4a373;
             border-radius: 14px;
@@ -223,7 +220,7 @@
         }
         .upload-text {
             color: #a87e5b;
-            font-size: 14px;
+            font-size: 15px;
             text-align: center;
             line-height: 1.3;
             display: flex;
@@ -232,7 +229,7 @@
             gap: 4px;
         }
         .upload-text .paw {
-            font-size: 26px;
+            font-size: 28px;
         }
         input[type="file"] {
             display: none;
@@ -297,10 +294,9 @@
             background-color: #e6d3b8;
         }
 
-        /* ---------------- [ PC / 태블릿 화면 (가로 480px 이상) ] ---------------- */
+        /* ---------------- [ PC / 태블릿 화면 ] ---------------- */
         @media (min-width: 480px) {
             body {
-                /* PC 환경에서는 다시 중앙 정렬로 예쁘게 배치 */
                 justify-content: center;
                 padding: 30px 10px;
             }
@@ -354,6 +350,12 @@
                 padding: 12px 14px;
                 min-height: 50px;
                 border-radius: 18px 12px 18px 12px;
+            }
+
+            /* PC 환경에서도 포토카드를 큼직하게 유지 */
+            .photocard-wrapper {
+                width: 250px; 
+                height: 360px;
             }
         }
     </style>
@@ -448,7 +450,7 @@
                     }
                     
                     cropper = new Cropper(imageToCrop, {
-                        aspectRatio: 210 / 300,
+                        aspectRatio: 250 / 360, // 커진 포토카드 비율 적용
                         viewMode: 1,
                         dragMode: 'move',
                         autoCropArea: 0.9,
@@ -480,8 +482,8 @@
             if (!cropper) return;
 
             const canvas = cropper.getCroppedCanvas({
-                width: 420, 
-                height: 600
+                width: 500, // 화질을 위해 2배 사이즈 추출
+                height: 720
             });
 
             const croppedBase64 = canvas.toDataURL('image/jpeg', 0.9);
