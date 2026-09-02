@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>이제 고민하지 마! 내가 골라 줄게</title>
-    <!-- 귀여운 둥근 폰트 (Jua) 롤백 -->
+    <!-- 귀여운 둥근 폰트 (Jua) -->
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <!-- 이미지 크롭 라이브러리 (Cropper.js) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
             background-size: 50px 50px;
             color: #5c4332;
             font-family: 'Jua', sans-serif;
-            font-weight: 400; /* 폰트 얇게 (기본 굵기) */
+            font-weight: 400; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,16 +43,16 @@
             margin: auto;
         }
 
-        /* ---------------- [ 상단 우드 간판 ] ---------------- */
+        /* ---------------- [ 상단 우드 간판 (모바일 기본: 아주 작게) ] ---------------- */
         .wood-sign {
             background-color: #d4a373;
             color: #fff;
-            padding: 8px 18px;
-            border-radius: 16px;
-            font-size: 20px; 
+            padding: 4px 10px; 
+            border-radius: 10px; 
+            font-size: 14px; 
             text-shadow: 1px 1px 0px #ab7a4b;
-            border: 3px solid #ab7a4b;
-            margin-bottom: 25px; 
+            border: 2px solid #ab7a4b;
+            margin-bottom: 15px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -63,19 +63,19 @@
         .wood-sign::before, .wood-sign::after {
             content: '📌';
             position: absolute;
-            font-size: 14px;
-            top: -6px;
+            font-size: 10px;
+            top: -4px;
         }
-        .wood-sign::before { left: 8px; }
-        .wood-sign::after { right: 8px; }
+        .wood-sign::before { left: 6px; }
+        .wood-sign::after { right: 6px; }
 
-        /* ---------------- [ 인덱스 탭 ] ---------------- */
+        /* ---------------- [ 인덱스 탭 (모바일 기본: 앙증맞게 축소) ] ---------------- */
         .tabs {
             display: flex;
             justify-content: center;
             width: 90%;
-            gap: 5px;
-            margin-bottom: -4px; 
+            gap: 3px;
+            margin-bottom: -3px; 
             z-index: 1;
         }
 
@@ -83,11 +83,11 @@
             font-family: 'Jua', sans-serif;
             font-weight: 400;
             flex: 1;
-            padding: 8px 2px 14px 2px; 
-            font-size: 16px; 
-            border: 3px solid #d4a373;
+            padding: 6px 2px 10px 2px; 
+            font-size: 13px; 
+            border: 2px solid #d4a373;
             border-bottom: none;
-            border-radius: 14px 14px 0 0;
+            border-radius: 10px 10px 0 0;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -106,16 +106,16 @@
         .tab-buy { background-color: #f6c5c8; }
         .tab-eat { background-color: #fce19a; }
 
-        /* ---------------- [ 메인 게임 창 ] ---------------- */
+        /* ---------------- [ 메인 게임 창 (모바일 기본: 테두리와 여백 축소) ] ---------------- */
         .game-window {
             background-color: #fffbf2;
-            padding: 25px 15px 30px;
+            padding: 15px 12px 20px;
             width: 100%;
-            border: 4px solid #d4a373;
-            border-radius: 20px;
+            border: 3px solid #d4a373;
+            border-radius: 16px;
             box-shadow: 
-                inset 0 0 0 6px #f4e8d3,
-                0 8px 0px rgba(212, 163, 115, 0.3);
+                inset 0 0 0 5px #f4e8d3,
+                0 6px 0px rgba(212, 163, 115, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -123,18 +123,18 @@
             z-index: 2;
         }
 
-        /* 상태 표시줄 */
+        /* 상태 표시줄 (모바일 기본: 글씨, 박스 크기 축소) */
         .category-display {
             background-color: #f3e5d0;
             color: #a87e5b;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 16px; 
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 13px; 
             border: 2px dashed #d4a373;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
             width: 90%;
-            min-height: 28px;
+            min-height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -145,29 +145,29 @@
             position: relative;
             background: #ffffff;
             color: #5c4332;
-            font-size: 17px; 
-            padding: 12px 14px; 
+            font-size: 15px; 
+            padding: 10px 12px; 
             width: 90%;
             border: 3px solid #d4a373;
-            border-radius: 18px 12px 18px 12px;
-            margin-bottom: 25px;
+            border-radius: 16px 10px 16px 10px;
+            margin-bottom: 20px;
             text-align: center;
-            min-height: 50px; 
+            min-height: 44px; 
             display: flex;
             align-items: center;
             justify-content: center;
             word-break: keep-all;
-            box-shadow: 3px 3px 0px rgba(212, 163, 115, 0.2);
-            line-height: 1.3;
+            box-shadow: 2px 2px 0px rgba(212, 163, 115, 0.2);
+            line-height: 1.2;
         }
         .speech-cloud::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%) rotate(45deg);
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background-color: #ffffff;
             border-bottom: 3px solid #d4a373;
             border-right: 3px solid #d4a373;
@@ -176,14 +176,14 @@
         
         .deco { position: absolute; font-size: 12px; }
         .deco-1 { left: 6px; top: 6px; }
-        .deco-2 { right: 6px; top: -8px; font-size: 16px; }
+        .deco-2 { right: 6px; top: -8px; font-size: 14px; }
         .deco-3 { right: 6px; bottom: 4px; font-size: 10px; }
         .deco-4 { left: 10px; bottom: -8px; font-size: 14px; }
 
-        /* 포토카드 */
+        /* 포토카드 (크기 큼직하게 유지) */
         .photocard-wrapper {
-            width: 170px; 
-            height: 245px; 
+            width: 210px; 
+            height: 300px; 
             background-color: #fdf5e6;
             border: 6px solid #d4a373;
             border-radius: 14px;
@@ -224,12 +224,12 @@
             display: none;
         }
 
-        /* ---------------- [ 크롭 모달창 (클래스명 충돌 방지 및 가시성 개선) ] ---------------- */
+        /* ---------------- [ 크롭 모달창 ] ---------------- */
         .crop-popup-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9); /* 배경을 아주 어둡게 처리하여 크롭 영역만 돋보이게 함 */
+            background: rgba(0, 0, 0, 0.9); 
             z-index: 9999;
             align-items: center;
             justify-content: center;
@@ -250,7 +250,7 @@
         .img-container {
             width: 100%;
             max-height: 55vh;
-            background-color: #222; /* 이미지가 잘 보이도록 대비를 줌 */
+            background-color: #222; 
             border-radius: 10px;
             overflow: hidden;
             display: flex;
@@ -282,11 +282,53 @@
         .modal-buttons button:active {
             background-color: #e6d3b8;
         }
+
+        /* ---------------- [ PC / 태블릿 화면 (가로 480px 이상)일 때는 기존 크기로 복구 ] ---------------- */
+        @media (min-width: 480px) {
+            .wood-sign {
+                padding: 5px 14px;
+                border-radius: 12px;
+                font-size: 16px;
+                border-width: 3px;
+                margin-bottom: 20px;
+            }
+            .wood-sign::before, .wood-sign::after { font-size: 12px; top: -5px; }
+            
+            .tabs { gap: 5px; margin-bottom: -4px; }
+            .tab-btn {
+                padding: 8px 2px 14px 2px;
+                font-size: 16px;
+                border-width: 3px;
+                border-radius: 14px 14px 0 0;
+            }
+
+            .game-window {
+                padding: 25px 15px 30px;
+                border-width: 4px;
+                border-radius: 20px;
+                box-shadow: inset 0 0 0 6px #f4e8d3, 0 8px 0px rgba(212, 163, 115, 0.3);
+            }
+
+            .category-display {
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 16px;
+                min-height: 28px;
+                margin-bottom: 15px;
+            }
+
+            .speech-cloud {
+                font-size: 17px;
+                padding: 12px 14px;
+                min-height: 50px;
+                border-radius: 18px 12px 18px 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- 1. 밖으로 꺼낸 우드 간판 -->
+        <!-- 1. 밖으로 꺼낸 우드 간판 (작아짐) -->
         <div class="wood-sign">이제 고민하지 마! 내가 골라 줄게</div>
 
         <!-- 2. 상단 아기자기한 인덱스 탭 -->
@@ -310,6 +352,7 @@
                 버튼을 누르면 내가 골라 줄게!
             </div>
 
+            <!-- 포토카드 크기 큼직하게 유지 -->
             <label for="imageUpload" class="photocard-wrapper" id="photoWrapper">
                 <div class="upload-text" id="uploadText">
                     <span class="paw">📸</span>
@@ -366,18 +409,16 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    // 모달창 띄우고 이미지 설정
                     imageToCrop.src = event.target.result;
                     cropPopup.style.display = 'flex';
                     
-                    // 기존 크로퍼가 있다면 파괴
                     if (cropper) {
                         cropper.destroy();
                     }
                     
-                    // 크로퍼 초기화 (포토카드 비율 170:245에 맞춤)
+                    // 커진 포토카드 비율(210:300) 적용
                     cropper = new Cropper(imageToCrop, {
-                        aspectRatio: 170 / 245,
+                        aspectRatio: 210 / 300,
                         viewMode: 1,
                         dragMode: 'move',
                         autoCropArea: 0.9,
@@ -392,7 +433,6 @@
                 };
                 reader.readAsDataURL(file);
             }
-            // 같은 파일을 다시 선택해도 작동하도록 value 초기화
             e.target.value = '';
         });
 
@@ -409,21 +449,19 @@
         applyCropBtn.addEventListener('click', function() {
             if (!cropper) return;
 
-            // 자른 이미지를 데이터(Base64)로 가져오기
+            // 커진 비율에 맞게 화질 향상 추출
             const canvas = cropper.getCroppedCanvas({
-                width: 340, // 화질을 위해 실제 픽셀의 2배 크기로 추출
-                height: 490
+                width: 420, 
+                height: 600
             });
 
             const croppedBase64 = canvas.toDataURL('image/jpeg', 0.9);
 
-            // 포토카드에 적용 및 저장
             previewImage.src = croppedBase64;
             previewImage.style.display = 'block';
             uploadText.style.display = 'none';
             localStorage.setItem('biasPhoto', croppedBase64);
 
-            // 모달창 닫기 및 크로퍼 파괴
             cropPopup.style.display = 'none';
             cropper.destroy();
             cropper = null;
@@ -448,7 +486,7 @@
         const eatList = [
             "참을 수 있다 ^^",
             "먹고 죽은 귀신이? 때깔도 곱다",
-            "어~ 안 돼~ 응~ 아니야~",
+            "어~ 안 돼~ 일찍 자~",
             "뭐 해? 아직 안 시켰어?"
         ];
 
