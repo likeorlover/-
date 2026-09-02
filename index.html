@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>꼬모의 결정 헬퍼</title>
-    <!-- 동물의 숲 느낌을 살릴 수 있는 귀엽고 둥근 폰트 -->
+    <!-- 귀여운 둥근 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <style>
+        /* 모든 요소의 크기 계산에 테두리와 여백을 포함하여 화면 밖으로 나가는 것을 방지 */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            /* 파스텔톤 체크무늬 배경 */
+            /* 파스텔톤 배경 */
             background-color: #fdf5e6;
             background-image: 
                 linear-gradient(90deg, rgba(162, 212, 195, 0.25) 50%, transparent 50%),
                 linear-gradient(rgba(243, 178, 185, 0.25) 50%, transparent 50%);
             background-size: 60px 60px;
-            color: #5c4332; /* 따뜻한 진갈색 텍스트 */
+            color: #5c4332;
             font-family: 'Jua', sans-serif;
             display: flex;
             flex-direction: column;
@@ -22,39 +27,65 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 10px; /* 모바일에서 위아래 여유 공간 */
-            box-sizing: border-box;
+            /* 모바일에서 상하좌우가 절대 잘리지 않도록 넉넉한 여백 추가 */
+            padding: 70px 15px 50px 15px; 
             overflow-x: hidden;
         }
         
-        /* 전체 컨테이너 (모바일 반응형 적용) */
+        /* 메인 컨테이너 */
         .game-window {
             background-color: #fffbf2;
-            padding: 30px 20px;
-            width: 90%;
-            max-width: 480px; /* PC에서는 최대 480px까지만 커짐 */
-            box-sizing: border-box;
-            border: 5px solid #d4a373; /* 우드 프레임 느낌 */
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 420px; /* PC/태블릿에서는 너무 커지지 않도록 제한 */
+            border: 5px solid #d4a373;
             border-radius: 25px;
-            box-shadow: 
-                0 15px 0px rgba(212, 163, 115, 0.4),
-                inset 0 0 0 8px #f4e8d3; /* 내부 이중 테두리 */
+            box-shadow: inset 0 0 0 8px #f4e8d3;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            margin-top: 30px;
+            z-index: 1;
+        }
+
+        /* 하단 입체 레이어 (가상 요소가 컨테이너 밖으로 과도하게 나가지 않게 조정) */
+        .game-window::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: -5px;
+            right: -5px;
+            height: 40px;
+            background-color: #a2d4c3;
+            border-radius: 0 0 25px 25px;
+            border: 5px solid #d4a373;
+            border-top: none;
+            z-index: -1;
+        }
+        .game-window::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: -5px;
+            right: -5px;
+            height: 40px;
+            background-color: #f3b2b9;
+            border-radius: 0 0 25px 25px;
+            border: 5px solid #d4a373;
+            border-top: none;
+            z-index: -2;
+            box-shadow: 0 10px 0px rgba(212, 163, 115, 0.3);
         }
 
         /* 상단 우드 간판 */
         .wood-sign {
             position: absolute;
-            top: -40px;
+            top: -45px;
             background-color: #d4a373;
             color: #fff;
             padding: 8px 25px;
             border-radius: 20px 20px 0 0;
-            font-size: 22px;
+            font-size: 24px;
             text-shadow: 2px 2px 0px #ab7a4b;
             border: 4px solid #ab7a4b;
             border-bottom: none;
@@ -66,26 +97,26 @@
         .wood-sign::before {
             content: '🍃';
             position: absolute;
-            top: -20px;
+            top: -22px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 26px;
         }
 
         /* 이름 입력 영역 */
         .name-section {
-            margin-top: 25px;
+            margin-top: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap; /* 모바일에서 좁으면 줄바꿈 */
+            width: 100%;
             gap: 10px;
             font-size: 20px;
             font-weight: bold;
         }
         .name-input-wrapper {
             background-color: #f3e5d0;
-            padding: 5px 15px;
+            padding: 5px 10px;
             border-radius: 20px;
             border: 3px solid #d4a373;
             display: flex;
@@ -95,15 +126,15 @@
         .name-input-wrapper::after {
             content: '🍃';
             position: absolute;
-            right: -30px;
-            font-size: 22px;
+            right: -25px;
+            font-size: 20px;
         }
         input[type="text"] {
             font-family: 'Jua', sans-serif;
             background-color: transparent;
             color: #5c4332;
             border: none;
-            width: 80px;
+            width: 75px;
             font-size: 18px;
             text-align: center;
             outline: none;
@@ -114,16 +145,15 @@
             position: relative;
             background: #ffffff;
             color: #5c4332;
-            font-size: 17px;
-            padding: 20px 15px;
+            font-size: 18px;
+            padding: 25px 20px;
             width: 100%;
-            box-sizing: border-box;
             border: 4px solid #d4a373;
             border-radius: 30px 20px 30px 20px;
             margin-top: 25px;
             margin-bottom: 25px;
             text-align: center;
-            min-height: 25px;
+            min-height: 30px;
             word-break: keep-all;
             box-shadow: 4px 4px 0px rgba(212, 163, 115, 0.3);
         }
@@ -141,28 +171,28 @@
             border-right: 4px solid #d4a373;
             border-bottom-right-radius: 10px;
         }
-        /* 주변 꾸미기 아이콘 */
+        /* 장식들이 밖으로 나가지 않도록 안쪽으로 배치 */
         .deco { position: absolute; font-size: 18px; }
-        .deco-1 { left: -10px; top: 10px; font-size: 22px; }
-        .deco-2 { right: -5px; top: -15px; }
-        .deco-3 { right: -15px; bottom: 10px; font-size: 16px; }
-        .deco-4 { left: 15px; bottom: -15px; }
+        .deco-1 { left: 8px; top: 8px; font-size: 20px; }
+        .deco-2 { right: 10px; top: -12px; }
+        .deco-3 { right: 8px; bottom: 8px; font-size: 16px; }
+        .deco-4 { left: 15px; bottom: -12px; }
 
-        /* 하단 레이아웃 (모바일에서는 세로 배치, PC에서는 가로 배치) */
+        /* 하단 레이아웃 (항상 세로 정렬 유지하여 모바일 최적화) */
         .bottom-content {
             display: flex;
-            flex-direction: column; /* 기본적으로 모바일 세로 배치 */
+            flex-direction: column; 
             width: 100%;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
 
-        /* 나무 액자 포토카드 영역 */
+        /* 나무 액자 포토카드 */
         .photocard-wrapper {
             width: 160px;
-            height: 230px; 
+            height: 220px; 
             background-color: #f3e5d0;
-            border: 10px solid #d4a373;
+            border: 8px solid #d4a373;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
@@ -187,33 +217,34 @@
         }
         .upload-text {
             color: #a87e5b;
-            font-size: 15px;
+            font-size: 14px;
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.4;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
         .upload-text .paw {
-            font-size: 28px;
+            font-size: 26px;
         }
         input[type="file"] {
             display: none;
         }
 
-        /* 둥근 알약 모양 버튼 그룹 */
+        /* 버튼 그룹 */
         .button-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
             width: 100%;
+            padding: 0 10px;
         }
         button {
             font-family: 'Jua', sans-serif;
             border: 4px solid #5c4332;
             border-radius: 30px;
-            padding: 10px 18px;
+            padding: 12px 20px;
             font-size: 18px;
             color: #5c4332;
             cursor: pointer;
@@ -222,7 +253,6 @@
             align-items: center;
             transition: all 0.1s;
         }
-        /* 파스텔 색상 및 3D 눌림 효과 */
         .btn-do { background-color: #c5e3d5; box-shadow: 0 5px 0px #8fae9f; } 
         .btn-buy { background-color: #f6c5c8; box-shadow: 0 5px 0px #c59b9d; } 
         .btn-eat { background-color: #fce19a; box-shadow: 0 5px 0px #c7af70; }
@@ -233,55 +263,19 @@
         }
         .btn-icon { font-size: 20px; }
 
-        /* 하단 민트/핑크 레이어 장식 (가상 요소) */
-        .game-window::before {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: -5px;
-            right: -5px;
-            height: 30px;
-            background-color: #a2d4c3;
-            border-radius: 0 0 25px 25px;
-            border: 5px solid #d4a373;
-            border-top: none;
-            z-index: -1;
-        }
-        .game-window::after {
-            content: '';
-            position: absolute;
-            bottom: -25px;
-            left: -5px;
-            right: -5px;
-            height: 30px;
-            background-color: #f3b2b9;
-            border-radius: 0 0 25px 25px;
-            border: 5px solid #d4a373;
-            border-top: none;
-            z-index: -2;
-        }
-
-        /* PC 및 태블릿 화면 (가로 520px 이상)일 때 가로 배치로 변경 */
-        @media (min-width: 520px) {
-            .game-window {
-                padding: 30px 40px;
-            }
+        /* 화면이 조금 넓어지면 버튼과 포토카드를 가로로 예쁘게 배치 */
+        @media (min-width: 450px) {
             .bottom-content {
-                flex-direction: row; /* 포토카드와 버튼을 양옆으로 나란히 */
-                justify-content: space-between;
-                gap: 20px;
+                flex-direction: row;
+                justify-content: center;
             }
-            .wood-sign {
-                font-size: 26px;
-                padding: 10px 40px;
+            .button-group {
+                width: auto;
+                flex: 1;
+                padding: 0;
             }
-            .speech-cloud {
-                font-size: 18px;
-                width: 90%;
-            }
-            button {
-                font-size: 20px;
-                padding: 12px 20px;
+            .photocard-wrapper {
+                margin-right: 10px;
             }
         }
     </style>
@@ -289,9 +283,7 @@
 <body>
     <div class="game-window">
         <!-- 상단 간판 -->
-        <div class="wood-sign">
-            꼬모의 결정 헬퍼
-        </div>
+        <div class="wood-sign">꼬모의 결정 헬퍼</div>
         
         <!-- 최애 이름 -->
         <div class="name-section">
@@ -337,7 +329,6 @@
         </div>
     </div>
 
-    <!-- 효과음 오디오 (선택사항) -->
     <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
 
     <script>
@@ -401,13 +392,11 @@
         ];
 
         function decide(type) {
-            // 버튼 클릭 소리 재생
             popSound.currentTime = 0;
             popSound.play().catch(e => console.log("오디오 재생 권한이 필요할 수 있습니다."));
 
             const name = biasNameInput.value.trim() || '최애';
             
-            // 말풍선 내용만 살짝 투명해졌다가 나타남
             speechBubble.style.opacity = 0;
 
             setTimeout(() => {
@@ -416,7 +405,6 @@
                 else if (type === 'buy') choice = buyList[Math.floor(Math.random() * buyList.length)];
                 else if (type === 'eat') choice = eatList[Math.floor(Math.random() * eatList.length)];
                 
-                // 기존 장식 아이콘들을 유지하면서 텍스트만 교체
                 speechBubble.innerHTML = `
                     <span class="deco deco-1">✨</span>
                     <span class="deco deco-2">🍎</span>
